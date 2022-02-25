@@ -4,6 +4,8 @@ import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
 
+const OMDB_API_KEY = 'a461e386'
+
 function App() {
   const [searchString, setSearchString] = useState('')
   const [searchResult, setSearchResult] = useState()
@@ -14,7 +16,7 @@ function App() {
 
   const search = useCallback(async () => {
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=a461e386&s=${searchString}`,
+      `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${searchString}`,
     )
 
     const data = await response.json()
