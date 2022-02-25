@@ -6,6 +6,7 @@ import { ReactComponent as ChevronRight } from './chevron-right.svg'
 
 function App() {
   const [searchResult, setSearchResult] = useState()
+  const [search, setSearch] = useState('')
 
   useEffect(() => {
     const search = async () => {

@@ -12,7 +12,7 @@ Si escribimos en el input de búsqueda se hace una nueva llamada al API buscando
 
 #### Tasks on `App` component
 
-- [] Add a `state`.`search` with default value of `''`
+- [x] Add a `state`.`search` with default value of `''`
 - [] Connect state variable `search` with input `searchInput`
 - [] Call the API after `click` on `searchBtn` and pass the `state`.`search` to the API call
 
