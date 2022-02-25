@@ -69,5 +69,7 @@ describe('App', () => {
     await waitForElementToBeRemoved(screen.queryByText('No results yet'))
     expect(screen.getByText('movie | 2005')).toBeInTheDocument()
     expect(screen.getByText('movie | 2019')).toBeInTheDocument()
+    expect(screen.getByAltText('King Kong (2005)')).toBeInTheDocument()
+    expect(screen.getByAltText('The Lion King (2019)')).toBeInTheDocument()
   })
 })

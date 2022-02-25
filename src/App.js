@@ -41,7 +41,7 @@ function App() {
               <div key={result.imdbID} className="search-item">
                 <img
                   src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
-                  alt="poster"
+                  alt={`${result.Title} (${result.Year})`}
                 />
                 <div className="search-item-data">
                   <div className="title">{result.Title}</div>
