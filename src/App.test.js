@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 
 import App from './App'
 
@@ -21,7 +21,12 @@ describe('App', () => {
     it('shows a default movies list', async () => {
       render(<App />)
 
-      expect(await screen.findByRole('list')).toBeInTheDocument()
+      const movieList = await screen.findByRole('list')
+
+      expect(movieList).toBeInTheDocument()
+      expect(within(movieList).getAllByRole('listitem').length).toBeGreaterThan(
+        0,
+      )
     })
   })
 })
