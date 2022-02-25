@@ -15,6 +15,15 @@ describe('App', () => {
 
       expect(screen.queryByRole('list')).toBeNull()
     })
+
+    it('shows an empty searchbox', () => {
+      render(<App />)
+
+      const searchBox = screen.getByRole('searchbox')
+
+      expect(searchBox).toBeInTheDocument()
+      expect(searchBox.value).toBe('')
+    })
   })
 
   describe('when loaded', () => {
