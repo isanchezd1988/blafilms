@@ -3,32 +3,36 @@ import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
+import { getMovies } from './services'
 
 function App() {
-  const [searchResult, setSearchResult] = useState()
+  const [searchQuery, setSearchQuery] = useState('')
+  const [searchResult, setSearchResult] = useState(null)
+
+  const handleSearch = e => {
+    e.preventDefault()
+    setSearchQuery(e.target.search.value)
+  }
 
   useEffect(() => {
     const search = async () => {
-      const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
-      )
+      const movies = await getMovies(searchQuery)
 
-      const data = await response.json()
-
-      if (!searchResult) {
-        setSearchResult(data)
-      }
+      movies.Response === 'False'
+        ? setSearchResult(null)
+        : setSearchResult(movies)
     }
-
-    search()
-  })
+    if (searchQuery !== '') {
+      search()
+    }
+  }, [searchQuery, setSearchResult])
 
   return (
     <div className="App">
-      <div className="search">
-        <input type="text" placeholder="Search..." />
+      <form className="search" onSubmit={handleSearch}>
+        <input type="text" placeholder="Search..." name="search" />
         <button>Search</button>
-      </div>
+      </form>
       {!searchResult ? (
         <p>No results yet</p>
       ) : (
