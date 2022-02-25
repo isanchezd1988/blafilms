@@ -38,13 +38,22 @@ button {
   justify-content: center;
 }
 
-.search-results .chevron .icon {
+.search-results .chevron button {
+  background-color: initial;
+  color: initial;
+}
+
+.search-results .chevron button:disabled {
+  opacity: 0.5;
+}
+
+.search-results .chevron button .icon {
   width: 50px;
   height: 50px;
   fill: #1d3557;
 }
 
-.search-results .chevron .icon:hover {
+.search-results .chevron button:not(:disabled) .icon:hover {
   fill: #e63946;
 }
 

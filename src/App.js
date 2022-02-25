@@ -1,13 +1,15 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
 
 const OMDB_API_KEY = 'a461e386'
+const RESULTS_PER_PAGE = 10
 
 function App() {
   const [searchString, setSearchString] = useState('')
+  const [searchPage, setSearchPage] = useState(1)
   const [searchResult, setSearchResult] = useState()
 
   const handleSearchChange = event => {
@@ -16,13 +18,29 @@ function App() {
 
   const search = useCallback(async () => {
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${searchString}`,
+      `http://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${searchString}&page=${searchPage}`,
     )
 
     const data = await response.json()
 
     setSearchResult(data)
-  }, [searchString])
+  }, [searchString, searchPage])
+
+  const handleDecrementPage = () => {
+    setSearchPage(previousValue => previousValue - 1)
+  }
+
+  const handleIncrementPage = () => {
+    console.log({ handleIncrementPage, searchPage })
+    setSearchPage(previousValue => previousValue + 1)
+  }
+
+  useEffect(() => {
+    search()
+    // NOTE: Not including search as dependency to prevent
+    // calling to it when searchString changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchPage])
 
   return (
     <div className="App">
@@ -36,15 +54,18 @@ function App() {
           Search
         </button>
       </div>
-      {!searchResult ? (
+      {!searchResult?.Search?.length ? (
         <p>No results yet</p>
       ) : (
         <div className="search-results">
           <div className="chevron">
-            <ChevronLeft />
+            <button onClick={handleDecrementPage} disabled={searchPage < 2}>
+              <ChevronLeft />
+            </button>
           </div>
+
           <div className="search-results-list">
-            {searchResult.Search.map(result => (
+            {searchResult.Search.map((result, idx) => (
               <div key={result.imdbID} className="search-item">
                 <img
                   src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
@@ -57,8 +78,17 @@ function App() {
               </div>
             ))}
           </div>
+
           <div className="chevron">
-            <ChevronRight />
+            <button
+              onClick={handleIncrementPage}
+              disabled={
+                searchPage >=
+                Math.ceil(searchResult.totalResults / RESULTS_PER_PAGE)
+              }
+            >
+              <ChevronRight />
+            </button>
           </div>
         </div>
       )}
