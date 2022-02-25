@@ -1,4 +1,9 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 import { enableFetchMocks } from 'jest-fetch-mock'
 
 import App from './App'
@@ -33,12 +38,16 @@ describe('App', () => {
     fetch.resetMocks()
   })
 
-  it('renders a message while data is fetching', () => {
+  it('renders a message while data is fetching', async () => {
     fetch.mockResponse(JSON.stringify({ Search: [] }))
 
     render(<App />)
 
-    expect(screen.getByText('No results yet')).toBeInTheDocument()
+    const message = screen.queryByText('No results yet')
+    expect(message).toBeInTheDocument()
+    // NOTE avoid error message because the component's state is updated after
+    // the test finishes
+    await waitForElementToBeRemoved(message)
   })
 
   it('after data is fetched, renders a grid of films', async () => {
