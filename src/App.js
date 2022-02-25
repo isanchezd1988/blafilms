@@ -24,6 +24,7 @@ function App() {
   }
 
   const goBeforePage = () => setSearchPage(searchPage - 1)
+  const goNextPage = () => setSearchPage(searchPage + 1)
 
   console.log(searchPage)
   return (
@@ -59,7 +60,7 @@ function App() {
             ))}
           </div>
           <div className="chevron">
-            <ChevronRight />
+            <ChevronRight onClick={goNextPage} />
           </div>
         </div>
       )}

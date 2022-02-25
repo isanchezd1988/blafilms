@@ -29,7 +29,7 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 
 - [x] Add a state variable `searchPage` with a default value of `1`
 - [x] Connect state variable `searchPage` with the navigation arrow `<`. Handle the change with the method `goBeforePage`
-- [] Connect state variable `searchPage` with the navigation arrow `>`. Handle the change with the method `goNextPage`
+- [x] Connect state variable `searchPage` with the navigation arrow `>`. Handle the change with the method `goNextPage`
 - [] Check `searchPage` cannot be lower than 1
 - [] Call the API after `click` the navigation arrows `<` and `>`
 
