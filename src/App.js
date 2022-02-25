@@ -25,14 +25,14 @@ function App() {
 
   return (
     <div className="App">
-      <div className="search">
+      <div className="search" data-testid="search">
         <input type="text" placeholder="Search..." />
         <button>Search</button>
       </div>
       {!searchResult ? (
         <p>No results yet</p>
       ) : (
-        <div className="search-results">
+        <div className="search-results" data-testid="searchresults">
           <div className="chevron">
             <ChevronLeft />
           </div>
