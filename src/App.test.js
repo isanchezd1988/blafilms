@@ -10,17 +10,18 @@ describe('App', () => {
   })
 
   it('renders', () => {
-    const { queryByPlaceholderText } = render(<App />)
+    render(<App />)
 
-    expect(queryByPlaceholderText('Search')).toBeTruthy()
+    expect(screen.getByPlaceholderText('Search')).toBeInTheDocument()
+    expect(screen.getByText('Search')).toBeInTheDocument()
   })
 })
 
 describe('Input value', () => {
   it('value updates on change', () => {
-    const { queryByPlaceholderText } = render(<App />)
+    render(<App />)
 
-    const searchInput = queryByPlaceholderText('Search')
+    const searchInput = screen.getByPlaceholderText('Search')
 
     fireEvent.change(searchInput, { target: { value: 'test' } })
 
