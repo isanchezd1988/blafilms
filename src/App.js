@@ -1,33 +1,38 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useCallback } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
 
 function App() {
+  const [searchString, setSearchString] = useState('')
   const [searchResult, setSearchResult] = useState()
 
-  useEffect(() => {
-    const search = async () => {
-      const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
-      )
+  const handleSearchChange = event => {
+    setSearchString(event.target.value)
+  }
 
-      const data = await response.json()
+  const search = useCallback(async () => {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=a461e386&s=${searchString}`,
+    )
 
-      if (!searchResult) {
-        setSearchResult(data)
-      }
-    }
+    const data = await response.json()
 
-    search()
-  })
+    setSearchResult(data)
+  }, [searchString])
 
   return (
     <div className="App">
       <div className="search">
-        <input type="text" placeholder="Search..." />
-        <button>Search</button>
+        <input
+          type="text"
+          placeholder="Search..."
+          onChange={handleSearchChange}
+        />
+        <button title="Click to search" onClick={search}>
+          Search
+        </button>
       </div>
       {!searchResult ? (
         <p>No results yet</p>
