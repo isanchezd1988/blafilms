@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, act, fireEvent } from '@testing-library/react'
 
 import App from './App'
 
@@ -13,5 +13,23 @@ describe('App', () => {
     render(<App />)
 
     expect(screen.queryByRole('button', { name: 'Search' })).not.toBeNull()
+  })
+})
+
+describe('Search films', () => {
+  it('Input value is properly setted', async () => {
+    render(<App />)
+
+    const searchValue = 'nemo'
+
+    const searchValueInput = screen.getByPlaceholderText('Search...')
+
+    await act(async () => {
+      fireEvent.change(searchValueInput, { target: { value: searchValue } })
+    })
+
+    const settedSearchValue = screen.getByDisplayValue(searchValue)
+
+    expect(settedSearchValue).not.toBeNull()
   })
 })
