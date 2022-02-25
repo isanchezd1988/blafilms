@@ -24,10 +24,16 @@ function App() {
     search()
   })
 
+  console.log(search)
   return (
     <div className="App">
       <div className="search">
-        <input type="text" placeholder="Search..." />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={search}
+          onChange={evt => setSearch(evt.target.value)}
+        />
         <button>Search</button>
       </div>
       {!searchResult ? (

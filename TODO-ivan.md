@@ -7,14 +7,14 @@ Si escribimos en el input de búsqueda se hace una nueva llamada al API buscando
 - El API de OMDB acepta un query parameter `s` para buscar pelis
 - `state`.`search`: value a pasar al query parameter.
 - `state`.`searchResult` para los resultados de búsqueda.
-- `searchInput` input html para introducir la búsqueda.
-- `searchBtn` button html para ejecutar la búsqueda.
+- `search-input` input html para introducir la búsqueda.
+- `search-btn` button html para ejecutar la búsqueda.
 
 #### Tasks on `App` component
 
 - [x] Add a `state`.`search` with default value of `''`
-- [] Connect state variable `search` with input `searchInput`
-- [] Call the API after `click` on `searchBtn` and pass the `state`.`search` to the API call
+- [x] Connect state variable `search` with input `search-input` as a controlled component
+- [] Call the API after `click` on `search-btn` and pass the `state`.`search` to the API call
 
 ---
 
@@ -36,6 +36,10 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 ---
 
 ## 3. Testing de componentes
+
+- [] App renders no results yet
+- [] App renders search results
+- [] App renders search-input
 
 #### Tasks
 
