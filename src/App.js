@@ -7,6 +7,7 @@ import { ReactComponent as ChevronRight } from './chevron-right.svg'
 function App() {
   const [searchResult, setSearchResult] = useState()
   const [search, setSearch] = useState('')
+  const [searchPage, setSearchPage] = useState(1)
 
   const doSearch = async () => {
     const queryParamSearch = search ? `&s=${search}` : ''
