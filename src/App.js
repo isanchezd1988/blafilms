@@ -38,7 +38,7 @@ function App() {
           </div>
           <ul className="search-results-list">
             {searchResult.Search.map(result => (
-              <div key={result.imdbID} className="search-item">
+              <li key={result.imdbID} className="search-item">
                 <img
                   src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
                   alt="poster"
@@ -47,7 +47,7 @@ function App() {
                   <div className="title">{result.Title}</div>
                   <div className="meta">{`${result.Type} | ${result.Year}`}</div>
                 </div>
-              </div>
+              </li>
             ))}
           </ul>
           <div className="chevron">
