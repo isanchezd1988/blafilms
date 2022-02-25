@@ -1,45 +1,47 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
+import InputSearch from './InputSearch'
 
 function App() {
   const [searchResult, setSearchResult] = useState()
-  const [searchQuery, setSearchQuery] = useState('')
+
+  const searchMovies = query => {
+    if (!!query) {
+      getMovies(query)
+    }
+  }
+
+  const getMovies = useCallback(
+    async value => {
+      try {
+        const response = await fetch(
+          `http://www.omdbapi.com/?apikey=a461e386&s=${value}`,
+        )
+        const data = await response.json()
+        if (data.Search && data.Search.length) {
+          setSearchResult(data)
+        } else {
+          setSearchResult([])
+        }
+      } catch (ex) {
+        alert(ex)
+      }
+    },
+    [setSearchResult],
+  )
 
   useEffect(() => {
-    const search = async () => {
-      const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
-      )
-
-      const data = await response.json()
-
-      if (!searchResult) {
-        setSearchResult(data)
-      }
-    }
-
-    search()
-  })
-
-  const onInputChange = query => {
-    setSearchQuery(query)
-  }
+    getMovies('king')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div className="App">
-      <div className="search">
-        <input
-          type="text"
-          placeholder="Search"
-          name="search"
-          value={searchQuery}
-          onChange={e => onInputChange(e.target.value)}
-        />
-        <button>Search</button>
-      </div>
+      <InputSearch searchAction={searchMovies} />
+
       {!searchResult ? (
         <p>No results yet</p>
       ) : (
