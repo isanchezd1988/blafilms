@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
@@ -8,23 +8,20 @@ function App() {
   const [searchResult, setSearchResult] = useState()
   const [search, setSearch] = useState('')
 
-  useEffect(() => {
-    const search = async () => {
-      const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
-      )
+  const doSearch = async () => {
+    const queryParamSearch = search ? `&s=${search}` : ''
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=a461e386${queryParamSearch}`,
+    )
 
-      const data = await response.json()
+    const data = await response.json()
 
-      if (!searchResult) {
-        setSearchResult(data)
-      }
-    }
+    setSearchResult({
+      ...data,
+      Search: data.Search || [],
+    })
+  }
 
-    search()
-  })
-
-  console.log(search)
   return (
     <div className="App">
       <div className="search">
@@ -34,7 +31,7 @@ function App() {
           value={search}
           onChange={evt => setSearch(evt.target.value)}
         />
-        <button>Search</button>
+        <button onClick={doSearch}>Search</button>
       </div>
       {!searchResult ? (
         <p>No results yet</p>

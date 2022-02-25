@@ -14,7 +14,7 @@ Si escribimos en el input de búsqueda se hace una nueva llamada al API buscando
 
 - [x] Add a `state`.`search` with default value of `''`
 - [x] Connect state variable `search` with input `search-input` as a controlled component
-- [] Call the API after `click` on `search-btn` and pass the `state`.`search` to the API call
+- [x] Call the API after `click` on `search-btn` and pass the `state`.`search` to the API call
 
 ---
 
@@ -40,6 +40,9 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 - [] App renders no results yet
 - [] App renders search results
 - [] App renders search-input
+- [] App does not render arrows for navigation when no results
+- [] App renders left arrow as disabled when page is 1
+- [] App renders right arrow as disabled when page is $last
 
 #### Tasks
 
