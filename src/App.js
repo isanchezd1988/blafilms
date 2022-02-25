@@ -66,7 +66,7 @@ function App() {
 
           <div className="search-results-list">
             {searchResult.Search.map((result, idx) => (
-              <div key={result.imdbID} className="search-item">
+              <div key={`${result.imdbID}_${idx}`} className="search-item">
                 <img
                   src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
                   alt="poster"
