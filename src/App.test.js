@@ -60,4 +60,14 @@ describe('App', () => {
       expect(screen.getByText('The Lion King')).toBeInTheDocument()
     })
   })
+
+  it('for each film, renders its details', async () => {
+    fetch.mockResponse(JSON.stringify(mock))
+
+    render(<App />)
+
+    await waitForElementToBeRemoved(screen.queryByText('No results yet'))
+    expect(screen.getByText('movie | 2005')).toBeInTheDocument()
+    expect(screen.getByText('movie | 2019')).toBeInTheDocument()
+  })
 })
