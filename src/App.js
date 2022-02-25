@@ -36,7 +36,7 @@ function App() {
           <div className="chevron">
             <ChevronLeft />
           </div>
-          <div className="search-results-list">
+          <ul className="search-results-list">
             {searchResult.Search.map(result => (
               <div key={result.imdbID} className="search-item">
                 <img
@@ -49,7 +49,7 @@ function App() {
                 </div>
               </div>
             ))}
-          </div>
+          </ul>
           <div className="chevron">
             <ChevronRight />
           </div>
