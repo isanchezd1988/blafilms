@@ -1,6 +1,8 @@
 import { render, screen, act, fireEvent } from '@testing-library/react'
+import fetchMock from 'fetch-mock'
 
 import App from './App'
+import OMDB_URL from './App'
 
 describe('App', () => {
   it('Starts with no results on screen', () => {
@@ -31,5 +33,28 @@ describe('Search films', () => {
     const settedSearchValue = screen.getByDisplayValue(searchValue)
 
     expect(settedSearchValue).not.toBeNull()
+  })
+
+  it('API fetchs with input value info', async () => {
+    render(<App />)
+
+    const searchValue = 'nemo'
+    const apiUrl = `${OMDB_URL}&s=${searchValue}`
+
+    const searchValueInput = screen.getByPlaceholderText('Search...')
+
+    await act(async () => {
+      fireEvent.change(searchValueInput, { target: { value: searchValue } })
+    })
+
+    const searchButton = screen.getByRole('button', { name: 'Search' })
+
+    const searchFilmsMock = fetchMock.mock(apiUrl, { status: 200, body: {} })
+
+    await act(async () => {
+      fireEvent.click(searchButton)
+    })
+
+    expect(searchFilmsMock.called(apiUrl)).toBe(true)
   })
 })
