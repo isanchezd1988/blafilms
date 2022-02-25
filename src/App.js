@@ -6,6 +6,7 @@ import { ReactComponent as ChevronRight } from './chevron-right.svg'
 
 function App() {
   const [searchResult, setSearchResult] = useState()
+  const [searchQuery, setSearchQuery] = useState('')
 
   useEffect(() => {
     const search = async () => {
@@ -23,10 +24,20 @@ function App() {
     search()
   })
 
+  const onInputChange = query => {
+    setSearchQuery(query)
+  }
+
   return (
     <div className="App">
       <div className="search">
-        <input type="text" placeholder="Search..." />
+        <input
+          type="text"
+          placeholder="Search"
+          name="search"
+          value={searchQuery}
+          onChange={e => onInputChange(e.target.value)}
+        />
         <button>Search</button>
       </div>
       {!searchResult ? (
