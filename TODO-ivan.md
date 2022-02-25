@@ -39,10 +39,12 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 
 - [] App renders no results yet
 - [] App renders search results
-- [] App renders search-input
+- [] App renders `search-input`
 - [] App does not render arrows for navigation when no results
 - [] App renders left arrow as disabled when page is 1
 - [] App renders right arrow as disabled when page is $last
+- [] App renders results after clicking `search-btn`
+- [] App renders results after hiting `Enter` key
 
 #### Tasks
 
