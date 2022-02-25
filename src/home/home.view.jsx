@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './App.css'
+import './home.styles.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
@@ -21,7 +21,7 @@ function App() {
     }
 
     search()
-  })
+  }, [])
 
   return (
     <div className="App">
