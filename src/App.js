@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
 
 function App() {
+  const searchRef = useRef()
+  const [query, setQuery] = useState('king')
   const [searchResult, setSearchResult] = useState()
 
   useEffect(() => {
     const search = async () => {
       const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
+        `http://www.omdbapi.com/?apikey=a461e386&s=${query}`,
       )
 
       const data = await response.json()
@@ -19,13 +21,15 @@ function App() {
     }
 
     search()
-  }, [setSearchResult])
+  }, [query, setSearchResult])
 
   return (
     <div className="App">
       <div className="search">
-        <input type="text" placeholder="Search..." />
-        <button>Search</button>
+        <input type="text" placeholder="Search..." ref={searchRef} />
+        <button onClick={() => setQuery(searchRef.current?.value)}>
+          Search
+        </button>
       </div>
       {!searchResult ? (
         <p>No results yet</p>
