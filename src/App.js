@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App">
       <div className="search">
-        <input type="text" placeholder="Search..." />
+        <input type="search" placeholder="Search..." />
         <button>Search</button>
       </div>
       {!searchResult ? (
