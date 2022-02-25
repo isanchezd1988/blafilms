@@ -50,6 +50,18 @@ describe('App', () => {
     await waitForElementToBeRemoved(message)
   })
 
+  it('renders a search bar', async () => {
+    fetch.mockResponse(JSON.stringify({ Search: [] }))
+
+    render(<App />)
+
+    expect(screen.queryByPlaceholderText('Search...')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Search' })).toBeInTheDocument()
+    // NOTE avoid error message because the component's state is updated after
+    // the test finishes
+    await waitForElementToBeRemoved(screen.queryByText('No results yet'))
+  })
+
   it('after data is fetched, renders a grid of films', async () => {
     fetch.mockResponse(JSON.stringify(mock))
 
