@@ -1,44 +1,46 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
+import { fetchFilms } from './filmsService'
 
 function App() {
-  const [searchResult, setSearchResult] = useState()
+  const [films, setFilms] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
-  useEffect(() => {
-    const search = async () => {
-      const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
-      )
+  const handleFetchFilms = useCallback(async () => {
+    searchTerm && setFilms(await fetchFilms(searchTerm))
+  }, [searchTerm])
 
-      const data = await response.json()
-
-      if (!searchResult) {
-        setSearchResult(data)
-      }
-    }
-
-    search()
-  })
+  useEffect(() => handleFetchFilms(), [handleFetchFilms])
 
   return (
     <div className="App">
       <div className="search" data-testid="search">
-        <input type="text" placeholder="Search..." />
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={event => setSearchTerm(event.target.value)}
+          name="search"
+        />
         <button>Search</button>
       </div>
-      {!searchResult ? (
+      {films.length === 0 ? (
         <p>No results yet</p>
       ) : (
-        <div className="search-results" data-testid="searchresults">
+        <div className="search-results" data-testid="search-results">
           <div className="chevron">
             <ChevronLeft />
           </div>
           <div className="search-results-list">
-            {searchResult.Search.map(result => (
-              <div key={result.imdbID} className="search-item">
+            {films.map((result, i) => (
+              <div
+                key={`${result.imdbID}-${i}`}
+                className="search-item"
+                data-testid="search-result-item"
+              >
                 <img
                   src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
                   alt="poster"

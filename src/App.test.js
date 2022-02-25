@@ -1,27 +1,64 @@
 import { render, screen } from '@testing-library/react'
+import * as userEvent from '@testing-library/user-event/dist/type'
+import { act } from 'react-dom/test-utils'
 
 import App from './App'
+import films from './mocks/films'
+
+const SEARCH_TERM = 'iron man'
 
 describe('App', () => {
-  it('First render outputs 0 results.', () => {
-    render(<App />)
+  describe('First render', () => {
+    it('First render outputs 0 results.', () => {
+      render(<App />)
 
-    expect(screen.getByText('No results yet')).toBeInTheDocument()
+      expect(screen.getByText('No results yet')).toBeInTheDocument()
+    })
+
+    it('Search bar is present even if there is no results.', () => {
+      render(<App />)
+
+      // NOTE: Se usa getByTestId (añadiendo previamente data-testid="search" al elemento)
+      // para evitar usar otro metodo de selección, como por ejemplo el className, ya que
+      // es un detalle de implementación y deberiamos alejarnos de conocer ese detalle,
+      // para la mantenibilidad de los tests.
+      // + Info: https://testing-library.com/docs/react-testing-library/intro/
+      expect(screen.getByTestId('search')).toBeInTheDocument()
+    })
+
+    it('Search results container is not in the document in first render.', async () => {
+      render(<App />)
+
+      expect(screen.queryByTestId('search-results')).toBeNull()
+    })
   })
 
-  it('Search bar is present even if there is no results.', () => {
-    render(<App />)
+  describe('Search films', () => {
+    beforeEach(() => {
+      jest.spyOn(global, 'fetch').mockResolvedValue({
+        json: jest.fn().mockResolvedValue(films),
+      })
+    })
 
-    // NOTE: Se usa getByTestId (añadiendo previamente data-testid="search" al elemento)
-    // para evitar usar otro metodo de selección, como por ejemplo el className, ya que
-    // es un detalle de implementación y deberiamos alejarnos de conocer ese detalle,
-    // para la mantenibilidad de los tests.
-    expect(screen.getByTestId('search')).toBeInTheDocument()
-  })
+    it('When search term is introduced, results will be rendered', async () => {
+      render(<App />)
 
-  it('Search results container is not in the document in first render.', async () => {
-    render(<App />)
+      const searchContainer = screen.getByTestId('search')
+      const input = searchContainer.querySelector('input[type="text"]')
 
-    expect(screen.queryByTestId('search-results')).toBeNull()
+      await act(async () =>
+        // NOTE: Usado delay para simular el input del usuario,
+        // si se introduce de golpe (sin delay) al ser un
+        // input vinculado al estado solo se guarda el ultimo caracter.
+        userEvent.type(input, 'iron{space}man', { delay: 1 }),
+      )
+
+      expect(input).toHaveValue(SEARCH_TERM)
+
+      const searchResultsContainer = screen.getByTestId('search-results')
+
+      expect(searchResultsContainer).toBeInTheDocument()
+      expect(screen.getAllByTestId('search-result-item')).toHaveLength(10)
+    })
   })
 })
