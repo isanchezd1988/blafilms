@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import App from './App'
 
@@ -22,6 +23,12 @@ describe('App', () => {
       render(<App />)
 
       expect(screen.getByText('No results yet')).toBeInTheDocument()
+    })
+
+    it('does not contain an element with class search-results', () => {
+      const { container } = render(<App />)
+
+      expect(container.getElementsByClassName('search-results').length).toBe(0)
     })
   })
 })
