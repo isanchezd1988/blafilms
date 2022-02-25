@@ -4,30 +4,34 @@ import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
 
+export const OMDB_URL = 'http://www.omdbapi.com/?apikey=a461e386'
+
 function App() {
   const [searchResult, setSearchResult] = useState()
+  const [searchValue, setSearchValue] = useState('')
 
-  useEffect(() => {
-    const search = async () => {
-      const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
-      )
+  const searchFilms = async () => {
+    if (!searchValue) return
 
-      const data = await response.json()
+    const response = await fetch(`${OMDB_URL}&s=${searchValue}`, {
+      method: 'GET',
+    })
 
-      if (!searchResult) {
-        setSearchResult(data)
-      }
-    }
+    const data = await response.json()
 
-    search()
-  })
+    setSearchResult(data)
+  }
 
   return (
     <div className="App">
       <div className="search">
-        <input type="text" placeholder="Search..." />
-        <button>Search</button>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchValue}
+          onChange={ev => setSearchValue(ev.target.value)}
+        />
+        <button onClick={searchFilms}>Search</button>
       </div>
       {!searchResult ? (
         <p>No results yet</p>
