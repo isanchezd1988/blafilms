@@ -7,16 +7,13 @@ import { getMovies } from './services'
 
 const App = () => {
   const [searchQuery, setSearchQuery] = useState('')
+  const [pagination, setPagination] = useState(1)
   const [searchResult, setSearchResult] = useState(null)
 
-  const handleSearch = e => {
-    e.preventDefault()
-    setSearchQuery(e.target.search.value)
-  }
-
   useEffect(() => {
+    console.log('inside useEffect', pagination)
     const search = async () => {
-      const movies = await getMovies(searchQuery)
+      const movies = await getMovies(searchQuery, pagination)
 
       movies.Response === 'False'
         ? setSearchResult(null)
@@ -25,7 +22,24 @@ const App = () => {
     if (searchQuery !== '') {
       search()
     }
-  }, [searchQuery, setSearchResult])
+  }, [searchQuery, setSearchResult, pagination])
+
+  const handleSearch = e => {
+    e.preventDefault()
+    setPagination(1)
+    setSearchQuery(e.target.search.value)
+  }
+
+  const handlePagination = e => {
+    const direction = e.target.name
+
+    if (direction === 'right') {
+      setPagination(pagination + 1)
+    }
+    if (direction === 'left') {
+      pagination !== 1 && setPagination(pagination - 1)
+    }
+  }
 
   return (
     <div className="App">
@@ -37,7 +51,10 @@ const App = () => {
         <p>No results yet</p>
       ) : (
         <div className="search-results">
-          <div className="chevron">
+          <div
+            className="chevron"
+            onClick={() => handlePagination({ target: { name: 'left' } })}
+          >
             <ChevronLeft />
           </div>
           <div className="search-results-list">
@@ -45,7 +62,10 @@ const App = () => {
               <Card result={result} key={result.imdbID} />
             ))}
           </div>
-          <div className="chevron">
+          <div
+            className="chevron"
+            onClick={() => handlePagination({ target: { name: 'right' } })}
+          >
             <ChevronRight />
           </div>
         </div>
