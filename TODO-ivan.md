@@ -32,7 +32,8 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 - [x] Connect state variable `searchPage` with the navigation arrow `>`. Handle the change with the method `goNextPage`
 - [x] Check `searchPage` cannot be lower than 1
 - [x] Call the API after `click` the navigation arrows `<` and `>` and pass the page to the API call
-- [] Use `${imdbID}_${index}` because the response from the API contains duplicated results in some cases
+- [x] Use `${imdbID}_${index}` because the response from the API contains duplicated results in some cases
+- [x] Control on `goNextPage` the last navigable page based on `searchResults.totalResults`
 
 ---
 

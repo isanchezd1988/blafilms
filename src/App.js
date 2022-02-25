@@ -4,6 +4,10 @@ import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
 
+const getTotalPages = (resultsPerPage, totalResults) => {
+  return Math.ceil(totalResults / resultsPerPage)
+}
+
 function App() {
   const [searchResult, setSearchResult] = useState()
   const [search, setSearch] = useState('')
@@ -21,15 +25,18 @@ function App() {
     const data = await response.json()
 
     setSearchResult({
-      ...data,
       Search: data.Search || [],
+      totalResults: data.totalResults || 0,
     })
   }
 
   const goBeforePage = () => {
     if (searchPage > 1) setSearchPage(searchPage - 1)
   }
-  const goNextPage = () => setSearchPage(searchPage + 1)
+  const goNextPage = () => {
+    const totalPages = getTotalPages(10, searchResult.totalResults)
+    if (totalPages > searchPage) setSearchPage(searchPage + 1)
+  }
 
   return (
     <div className="App">
@@ -50,8 +57,8 @@ function App() {
             <ChevronLeft onClick={goBeforePage} />
           </div>
           <div className="search-results-list">
-            {searchResult.Search.map(result => (
-              <div key={result.imdbID} className="search-item">
+            {searchResult.Search.map((result, index) => (
+              <div key={`${result.imdbID}_${index}`} className="search-item">
                 <img
                   src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
                   alt="poster"
