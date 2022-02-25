@@ -8,4 +8,10 @@ describe('App', () => {
 
     expect(screen.getByText('No results yet')).toBeInTheDocument()
   })
+
+  it('Displays a button to search', () => {
+    render(<App />)
+
+    expect(screen.queryByRole('button', { name: 'Search' })).not.toBeNull()
+  })
 })
