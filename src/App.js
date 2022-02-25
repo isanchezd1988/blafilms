@@ -9,15 +9,19 @@ const getTotalPages = (resultsPerPage, totalResults) => {
 }
 
 function App() {
+  const FIRST_PAGE = 1
   const [searchResult, setSearchResult] = useState()
   const [search, setSearch] = useState('')
-  const [searchPage, setSearchPage] = useState(1)
+  const [searchPage, setSearchPage] = useState(FIRST_PAGE)
 
   useEffect(() => doSearch(), [searchPage])
 
-  const doSearch = async () => {
+  const doSearch = async ({ resetPages } = {}) => {
+    const page = resetPages ? FIRST_PAGE : searchPage
+    if (resetPages) setSearchPage(page)
+
     const queryParamSearch = search ? `&s=${search}` : ''
-    const queryParamPage = `&page=${searchPage}`
+    const queryParamPage = `&page=${page}`
     const response = await fetch(
       `http://www.omdbapi.com/?apikey=a461e386${queryParamSearch}${queryParamPage}`,
     )
@@ -28,6 +32,10 @@ function App() {
       Search: data.Search || [],
       totalResults: data.totalResults || 0,
     })
+  }
+
+  const handleClickSearch = () => {
+    doSearch({ resetPages: true })
   }
 
   const goBeforePage = () => {
@@ -47,7 +55,7 @@ function App() {
           value={search}
           onChange={evt => setSearch(evt.target.value)}
         />
-        <button onClick={doSearch}>Search</button>
+        <button onClick={handleClickSearch}>Search</button>
       </div>
       {!searchResult ? (
         <p>No results yet</p>
