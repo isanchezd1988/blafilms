@@ -30,8 +30,9 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 - [x] Add a state variable `searchPage` with a default value of `1`
 - [x] Connect state variable `searchPage` with the navigation arrow `<`. Handle the change with the method `goBeforePage`
 - [x] Connect state variable `searchPage` with the navigation arrow `>`. Handle the change with the method `goNextPage`
-- [] Check `searchPage` cannot be lower than 1
-- [] Call the API after `click` the navigation arrows `<` and `>`
+- [x] Check `searchPage` cannot be lower than 1
+- [x] Call the API after `click` the navigation arrows `<` and `>` and pass the page to the API call
+- [] Use `${imdbID}_${index}` because the response from the API contains duplicated results in some cases
 
 ---
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
@@ -9,10 +9,13 @@ function App() {
   const [search, setSearch] = useState('')
   const [searchPage, setSearchPage] = useState(1)
 
+  useEffect(() => doSearch(), [searchPage])
+
   const doSearch = async () => {
     const queryParamSearch = search ? `&s=${search}` : ''
+    const queryParamPage = `&page=${searchPage}`
     const response = await fetch(
-      `http://www.omdbapi.com/?apikey=a461e386${queryParamSearch}`,
+      `http://www.omdbapi.com/?apikey=a461e386${queryParamSearch}${queryParamPage}`,
     )
 
     const data = await response.json()
@@ -23,10 +26,11 @@ function App() {
     })
   }
 
-  const goBeforePage = () => setSearchPage(searchPage - 1)
+  const goBeforePage = () => {
+    if (searchPage > 1) setSearchPage(searchPage - 1)
+  }
   const goNextPage = () => setSearchPage(searchPage + 1)
 
-  console.log(searchPage)
   return (
     <div className="App">
       <div className="search">
