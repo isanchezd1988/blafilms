@@ -31,4 +31,28 @@ describe('App', () => {
       expect(container.getElementsByClassName('search-results').length).toBe(0)
     })
   })
+
+  describe('On typing', () => {
+    it('does not automatically search', () => {
+      const { container } = render(<App />)
+
+      userEvent.type(screen.getByTitle('Search input'), 'test')
+
+      expect(screen.getByText('No results yet')).toBeInTheDocument()
+      expect(container.getElementsByClassName('search-results').length).toBe(0)
+    })
+
+    it('searches after button click', async () => {
+      const { container } = render(<App />)
+
+      userEvent.type(screen.getByTitle('Search input'), 'test')
+      userEvent.click(screen.getByRole('button', { title: 'Click to search' }))
+
+      await waitFor(() =>
+        expect(container.getElementsByClassName('search-results').length).toBe(
+          1,
+        ),
+      )
+    })
+  })
 })
