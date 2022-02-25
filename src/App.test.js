@@ -4,6 +4,8 @@ import {
   waitFor,
   waitForElementToBeRemoved,
 } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+
 import { enableFetchMocks } from 'jest-fetch-mock'
 
 import App from './App'
@@ -81,5 +83,18 @@ describe('App', () => {
     expect(screen.getByText('movie | 2019')).toBeInTheDocument()
     expect(screen.getByAltText('King Kong (2005)')).toBeInTheDocument()
     expect(screen.getByAltText('The Lion King (2019)')).toBeInTheDocument()
+  })
+
+  // TODO fix the `act` warning
+  it('after user introduces some text in the search bar and presses the search button, makes another request', async () => {
+    fetch.mockResponse(JSON.stringify(mock))
+
+    render(<App />)
+
+    await userEvent.type(screen.queryByPlaceholderText('Search...'), 'foo')
+    await userEvent.click(screen.getByRole('button', { name: 'Search' }))
+
+    expect(fetch).toHaveBeenCalledTimes(2)
+    expect(fetch).toHaveBeenLastCalledWith(expect.stringContaining('foo'))
   })
 })
