@@ -15,13 +15,11 @@ function App() {
 
       const data = await response.json()
 
-      if (!searchResult) {
-        setSearchResult(data)
-      }
+      setSearchResult(data)
     }
 
     search()
-  })
+  }, [setSearchResult])
 
   return (
     <div className="App">

@@ -31,15 +31,13 @@ const mock = {
   ],
 }
 
-// REVIEW fetch is being called more than once, so `fetchMock.mockResponseOnce`
-// does not work
 describe('App', () => {
   beforeEach(() => {
     fetch.resetMocks()
   })
 
   it('renders a message while data is fetching', async () => {
-    fetch.mockResponse(JSON.stringify({ Search: [] }))
+    fetch.mockResponseOnce(JSON.stringify({ Search: [] }))
 
     render(<App />)
 
@@ -51,7 +49,7 @@ describe('App', () => {
   })
 
   it('renders a search bar', async () => {
-    fetch.mockResponse(JSON.stringify({ Search: [] }))
+    fetch.mockResponseOnce(JSON.stringify({ Search: [] }))
 
     render(<App />)
 
@@ -63,7 +61,7 @@ describe('App', () => {
   })
 
   it('after data is fetched, renders a grid of films', async () => {
-    fetch.mockResponse(JSON.stringify(mock))
+    fetch.mockResponseOnce(JSON.stringify(mock))
 
     render(<App />)
 
@@ -74,7 +72,7 @@ describe('App', () => {
   })
 
   it('for each film, renders its details', async () => {
-    fetch.mockResponse(JSON.stringify(mock))
+    fetch.mockResponseOnce(JSON.stringify(mock))
 
     render(<App />)
 
