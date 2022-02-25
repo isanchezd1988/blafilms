@@ -47,6 +47,7 @@ function App() {
       <div className="search">
         <input
           type="text"
+          title="Search input"
           placeholder="Search..."
           onChange={handleSearchChange}
         />
