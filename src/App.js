@@ -23,6 +23,9 @@ function App() {
     })
   }
 
+  const goBeforePage = () => setSearchPage(searchPage - 1)
+
+  console.log(searchPage)
   return (
     <div className="App">
       <div className="search">
@@ -39,7 +42,7 @@ function App() {
       ) : (
         <div className="search-results">
           <div className="chevron">
-            <ChevronLeft />
+            <ChevronLeft onClick={goBeforePage} />
           </div>
           <div className="search-results-list">
             {searchResult.Search.map(result => (
