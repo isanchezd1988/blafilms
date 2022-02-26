@@ -1,12 +1,27 @@
 const ENDPOINT = 'http://www.omdbapi.com/?apikey=a461e386'
 
-export async function fetchFilms(searchTerm) {
+const ITEMS_PER_PAGE = 10
+
+export async function fetchFilms(searchTerm, page = 1) {
   if (searchTerm.length < 3) {
-    return []
+    return {
+      results: [],
+      hasPreviousPage: false,
+      hasNextPage: false,
+    }
   }
 
-  const response = await fetch(`${ENDPOINT}&s=${searchTerm}`)
+  const params = new URLSearchParams()
+
+  params.append('s', searchTerm)
+  params.append('page', page)
+
+  const response = await fetch(`${ENDPOINT}&${params.toString()}`)
   const data = await response.json()
 
-  return data.Search || []
+  return {
+    results: data.Search || [],
+    hasPreviousPage: page > 1,
+    hasNextPage: ITEMS_PER_PAGE * page < Number(data.totalResults),
+  }
 }

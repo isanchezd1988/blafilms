@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import * as userEvent from '@testing-library/user-event/dist/type'
+import userEvent from '@testing-library/user-event'
 import { act } from 'react-dom/test-utils'
 
 import App from './App'
@@ -23,6 +23,8 @@ describe('App', () => {
       // es un detalle de implementación y deberiamos alejarnos de conocer ese detalle,
       // para la mantenibilidad de los tests.
       // + Info: https://testing-library.com/docs/react-testing-library/intro/
+      // DUDA: Si el test no tiene porque conocer como esta implementado el codigo,
+      // ¿porque el codigo de la app si necesita saber como es necesario implementar los atributos de data-testid?
       expect(screen.getByTestId('search')).toBeInTheDocument()
     })
 
@@ -58,7 +60,51 @@ describe('App', () => {
       const searchResultsContainer = screen.getByTestId('search-results')
 
       expect(searchResultsContainer).toBeInTheDocument()
-      expect(screen.getAllByTestId('search-result-item')).toHaveLength(10)
+      expect(screen.getAllByTestId('search-result-item')).toHaveLength(
+        films.Search.length,
+      )
+    })
+  })
+
+  describe('Pagination', () => {
+    beforeEach(() => {
+      jest.spyOn(global, 'fetch').mockResolvedValue({
+        json: jest.fn().mockResolvedValue(films),
+      })
+    })
+
+    it('When first page is rendered, next page will become available and not previous page', async () => {
+      render(<App />)
+
+      const searchContainer = screen.getByTestId('search')
+      const input = searchContainer.querySelector('input[type="text"]')
+
+      await act(async () =>
+        userEvent.type(input, 'iron{space}man', { delay: 1 }),
+      )
+
+      const nextPageTrigger = screen.queryByTestId('next-page')
+      const previousPageTrigger = screen.queryByTestId('previous-page')
+
+      expect(nextPageTrigger).toBeInTheDocument('next-page')
+      expect(previousPageTrigger).not.toBeInTheDocument('next-page')
+    })
+
+    it('When user navigates to second page, previous page become avaiable', async () => {
+      render(<App />)
+
+      const searchContainer = screen.getByTestId('search')
+      const input = searchContainer.querySelector('input[type="text"]')
+
+      await act(async () =>
+        userEvent.type(input, 'iron{space}man', { delay: 1 }),
+      )
+
+      const nextPageTrigger = screen.queryByTestId('next-page')
+
+      await act(async () => userEvent.click(nextPageTrigger))
+
+      expect(nextPageTrigger).toBeInTheDocument('next-page')
     })
   })
 })
