@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
 import List from './List'
+import Card from './Card'
 import SearchInput from './SearchInput'
 import { SearchNavPrev, SearchNavNext } from './searchNav'
 import SearchNoResults from './SearchNoResults'
@@ -61,16 +62,15 @@ function App() {
           <SearchNavPrev onClick={goPrevPage} />
           <List>
             {searchResult.Search.map((result, index) => (
-              <div key={`${result.imdbID}_${index}`} className="search-item">
-                <img
-                  src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
-                  alt="poster"
-                />
-                <div className="search-item-data">
-                  <div className="title">{result.Title}</div>
-                  <div className="meta">{`${result.Type} | ${result.Year}`}</div>
-                </div>
-              </div>
+              <Card
+                key={`${result.imdbID}_${index}`}
+                img={{
+                  src: result.Poster === 'N/A' ? placeholderImg : result.Poster,
+                  alt: 'poster',
+                }}
+                title={result.Title}
+                meta={`${result.Type} | ${result.Year}`}
+              />
             ))}
           </List>
           <SearchNavNext onClick={goNextPage} />

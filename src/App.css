@@ -54,7 +54,7 @@ button {
   fill: #e63946;
 }
 
-.search-item {
+.card {
   border-radius: 5px;
   background-color: #f1faee;
   color: #e63946;
@@ -64,25 +64,28 @@ button {
   grid-template-columns: 25% 75%;
 }
 
-.search-item img {
+.card img {
   width: 75px;
   height: 111px;
   border-radius: 2px;
 }
 
-.search-item .search-item-data {
+.card .card-data {
   padding-top: 10px;
   text-align: left;
-  display: grid;
-  grid-template-rows: 75% 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
 }
 
-.search-item .search-item-data .title {
+.card .card-data .title {
   color: #457b9d;
   font-weight: bold;
   font-size: 20px;
 }
 
-.search-item .search-item-data .meta {
+.card .card-data .meta {
   font-size: 14px;
+  text-align: right;
 }
