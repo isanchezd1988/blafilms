@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
+import List from './List'
 import SearchInput from './SearchInput'
 import { SearchNavPrev, SearchNavNext } from './searchNav'
 import SearchNoResults from './SearchNoResults'
@@ -58,7 +59,7 @@ function App() {
       ) : (
         <div className="search-results">
           <SearchNavPrev onClick={goPrevPage} />
-          <div className="search-results-list">
+          <List>
             {searchResult.Search.map((result, index) => (
               <div key={`${result.imdbID}_${index}`} className="search-item">
                 <img
@@ -71,7 +72,7 @@ function App() {
                 </div>
               </div>
             ))}
-          </div>
+          </List>
           <SearchNavNext onClick={goNextPage} />
         </div>
       )}

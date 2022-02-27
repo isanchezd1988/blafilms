@@ -20,6 +20,12 @@ button {
   border-radius: 0 5px 5px 0;
 }
 
+.list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+}
+
 .search {
   margin-top: 50px;
   display: grid;
@@ -46,12 +52,6 @@ button {
 
 .search-results .chevron .icon:hover {
   fill: #e63946;
-}
-
-.search-results-list {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
 }
 
 .search-item {
