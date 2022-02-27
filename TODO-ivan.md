@@ -44,7 +44,8 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 
 - [x] crear custom component `SearchInput`
 - [x] crear custom component `SearchNoResults`
-- [] crear custom component `SearchNavPage`
+- [x] crear custom component `SearchNavPrev`
+- [x] crear custom component `SearchNavNext`
 - [] crear custom component `List`
 - [] crear custom component `Card`
 - [] crear custom component `MovieDetails`

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import placeholderImg from './placeholder.png'
-import { ReactComponent as ChevronLeft } from './chevron-left.svg'
-import { ReactComponent as ChevronRight } from './chevron-right.svg'
 import SearchInput from './SearchInput'
+import { SearchNavPrev, SearchNavNext } from './searchNav'
 import SearchNoResults from './SearchNoResults'
 
 const getTotalPages = (resultsPerPage, totalResults) => {
@@ -40,7 +39,7 @@ function App() {
     doSearch({ resetPages: true })
   }
 
-  const goBeforePage = () => {
+  const goPrevPage = () => {
     if (searchPage > 1) setSearchPage(searchPage - 1)
   }
   const goNextPage = () => {
@@ -58,9 +57,7 @@ function App() {
         <SearchNoResults />
       ) : (
         <div className="search-results">
-          <div className="chevron">
-            <ChevronLeft onClick={goBeforePage} />
-          </div>
+          <SearchNavPrev onClick={goPrevPage} />
           <div className="search-results-list">
             {searchResult.Search.map((result, index) => (
               <div key={`${result.imdbID}_${index}`} className="search-item">
@@ -75,9 +72,7 @@ function App() {
               </div>
             ))}
           </div>
-          <div className="chevron">
-            <ChevronRight onClick={goNextPage} />
-          </div>
+          <SearchNavNext onClick={goNextPage} />
         </div>
       )}
     </div>
