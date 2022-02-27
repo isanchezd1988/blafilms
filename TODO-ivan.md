@@ -38,7 +38,22 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 
 ---
 
-## 3. Testing de componentes
+## 3. Crear custom components
+
+#### Tasks
+
+- [x] crear custom component `SearchInput`
+- [] crear custom component `SearchNoResults`
+- [] crear custom component `SearchNavPage`
+- [] crear custom component `List`
+- [] crear custom component `Card`
+- [] crear custom component `MovieDetails`
+
+---
+
+## 4. Testing de componentes
+
+#### Tasks
 
 - [] App renders no results yet
 - [] App renders search results
@@ -48,22 +63,6 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 - [] App renders right arrow as disabled when page is $last
 - [] App renders results after clicking `search-btn`
 - [] App renders results after hiting `Enter` key
-
-#### Tasks
-
-- [] bla
-
----
-
-## 4. Crear custom components
-
-#### Tasks
-
-- [] crear custom component `SearchInput`
-- [] crear custom component `SearchNoResults`
-- [] crear custom component `SearchNavPage`
-- [] crear custom component `List`
-- [] crear custom component `Card`
 
 ---
 

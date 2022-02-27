@@ -3,6 +3,7 @@ import './App.css'
 import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
+import SearchInput from './SearchInput'
 
 const getTotalPages = (resultsPerPage, totalResults) => {
   return Math.ceil(totalResults / resultsPerPage)
@@ -49,12 +50,7 @@ function App() {
   return (
     <div className="App">
       <div className="search">
-        <input
-          type="text"
-          placeholder="Search..."
-          value={search}
-          onChange={evt => setSearch(evt.target.value)}
-        />
+        <SearchInput value={search} onChange={setSearch} />
         <button onClick={handleClickSearch}>Search</button>
       </div>
       {!searchResult ? (
