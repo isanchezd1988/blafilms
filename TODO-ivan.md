@@ -43,7 +43,7 @@ Si hacemos clic en las flechas `<` `>` mostraremos los resultados de la página 
 #### Tasks
 
 - [x] crear custom component `SearchInput`
-- [] crear custom component `SearchNoResults`
+- [x] crear custom component `SearchNoResults`
 - [] crear custom component `SearchNavPage`
 - [] crear custom component `List`
 - [] crear custom component `Card`

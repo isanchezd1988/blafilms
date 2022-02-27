@@ -4,6 +4,7 @@ import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
 import SearchInput from './SearchInput'
+import SearchNoResults from './SearchNoResults'
 
 const getTotalPages = (resultsPerPage, totalResults) => {
   return Math.ceil(totalResults / resultsPerPage)
@@ -54,7 +55,7 @@ function App() {
         <button onClick={handleClickSearch}>Search</button>
       </div>
       {!searchResult ? (
-        <p>No results yet</p>
+        <SearchNoResults />
       ) : (
         <div className="search-results">
           <div className="chevron">
