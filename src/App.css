@@ -1,3 +1,9 @@
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 input[type='text'] {
   border: none;
   line-height: 2;
@@ -14,8 +20,6 @@ input[type='text']:focus {
 
 button {
   border: none;
-  background-color: #1d3557;
-  color: #a8dadc;
   font-size: 24px;
   border-radius: 0 5px 5px 0;
 }
@@ -24,6 +28,13 @@ button {
   margin-top: 50px;
   display: grid;
   grid-template-columns: 25% 40% 10% 25%;
+}
+
+.search-no-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
 }
 
 .search-results {
@@ -36,15 +47,23 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #a8dadc;
 }
 
 .search-results .chevron .icon {
   width: 50px;
   height: 50px;
-  fill: #1d3557;
+  background-color: #a8dadc;
 }
 
-.search-results .chevron .icon:hover {
+.search-results .is-active .icon {
+  fill: #1d3557;
+}
+.search-results .is-disabled .icon {
+  fill: grey;
+}
+
+.search-results .is-active .icon:hover {
   fill: #e63946;
 }
 
