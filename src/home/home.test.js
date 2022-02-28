@@ -15,5 +15,11 @@ describe('Movies App', () => {
         expect(screen.getByText(MOVIES_STATES.empty)).toBeInTheDocument()
       })
     })
+    describe('Loading movies', () => {
+      it('When the movies are loading, shows a message indicating it', () => {
+        render(<Home isLoading />)
+        expect(screen.getByText(MOVIES_STATES.loading)).toBeInTheDocument()
+      })
+    })
   })
 })
