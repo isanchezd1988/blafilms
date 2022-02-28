@@ -21,5 +21,12 @@ describe('Movies App', () => {
         expect(screen.getByText(MOVIES_STATES.loading)).toBeInTheDocument()
       })
     })
+    describe('Failures', () => {
+      it('When the Home has an error, shows the message', () => {
+        const errorMessage = 'This could be any error message'
+        render(<Home isError error={errorMessage} />)
+        expect(screen.getByText(errorMessage)).toBeInTheDocument()
+      })
+    })
   })
 })
