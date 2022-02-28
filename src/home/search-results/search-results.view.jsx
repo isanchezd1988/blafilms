@@ -9,9 +9,9 @@ export default function SearchResults({ movies }) {
       <div className="chevron">
         <ChevronLeft />
       </div>
-      <div className="search-results-list">
+      <ul className="search-results-list">
         {movies.map(movie => (
-          <div key={movie.id} className="search-item">
+          <li key={movie.id} className="search-item">
             <img
               src={movie.poster === 'N/A' ? placeholderImg : movie.poster}
               alt="poster"
@@ -20,9 +20,9 @@ export default function SearchResults({ movies }) {
               <div className="title">{movie.title}</div>
               <div className="meta">{`${movie.type} | ${movie.year}`}</div>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
       <div className="chevron">
         <ChevronRight />
       </div>
