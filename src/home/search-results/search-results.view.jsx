@@ -3,22 +3,22 @@ import { ReactComponent as ChevronRight } from './chevron-right.svg'
 import placeholderImg from './placeholder.png'
 import './search-results.styles.css'
 
-export default function SearchResults({ searchResult }) {
+export default function SearchResults({ movies }) {
   return (
     <div className="search-results">
       <div className="chevron">
         <ChevronLeft />
       </div>
       <div className="search-results-list">
-        {searchResult.Search.map(result => (
-          <div key={result.imdbID} className="search-item">
+        {movies.map(movie => (
+          <div key={movie.id} className="search-item">
             <img
-              src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
+              src={movie.poster === 'N/A' ? placeholderImg : movie.poster}
               alt="poster"
             />
             <div className="search-item-data">
-              <div className="title">{result.Title}</div>
-              <div className="meta">{`${result.Type} | ${result.Year}`}</div>
+              <div className="title">{movie.title}</div>
+              <div className="meta">{`${movie.type} | ${movie.year}`}</div>
             </div>
           </div>
         ))}
