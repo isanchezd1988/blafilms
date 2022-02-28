@@ -41,7 +41,7 @@ const transformOmdbResponse = response => {
   return {
     error: false,
     movies,
-    totalResults: response.totalResults,
+    totalResults: parseInt(response.totalResults, 10),
   }
 }
 
