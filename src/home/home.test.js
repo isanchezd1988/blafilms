@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 
 import { MOVIES_STATES } from './home.business'
+import { movies_searched_by_king } from './home.mocks'
 import Home from './home.view'
 
 describe('Movies App', () => {
@@ -26,6 +27,13 @@ describe('Movies App', () => {
         const errorMessage = 'This could be any error message'
         render(<Home isError error={errorMessage} />)
         expect(screen.getByText(errorMessage)).toBeInTheDocument()
+      })
+    })
+    describe('Listing the movies', () => {
+      it('When we pass a list of movies, they are showed', () => {
+        render(<Home movies={movies_searched_by_king} />)
+        const movies = screen.getAllByRole('listitem')
+        expect(movies.length).toBeGreaterThan(0)
       })
     })
   })

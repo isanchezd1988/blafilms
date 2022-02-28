@@ -40,7 +40,7 @@ export const movies_searched_by_king = [
     year: '2017',
   },
   {
-    id: 'tt1972591',
+    id: 'tt1972592',
     poster:
       'https://m.media-amazon.com/images/M/MV5BMjM3ODY3Njc5Ml5BMl5BanBnXkFtZTgwMjQ5NjM5MTI@._V1_SX300.jpg',
     title: 'King Arthur: Legend of the Sword',
