@@ -5,14 +5,15 @@ import placeholderImg from './assets/placeholder.png'
 import { ReactComponent as ChevronLeft } from './assets/chevron-left.svg'
 import { ReactComponent as ChevronRight } from './assets/chevron-right.svg'
 
-const SearchResults = ({ searchResults }) => {
+const SearchResults = ({ searchResults, fetchPrevPage, fetchNextPage }) => {
   return !searchResults ? (
     <p>No results yet</p>
   ) : (
     <div className="search-results">
-      <div className="chevron">
+      <div className="chevron" onClick={fetchPrevPage}>
         <ChevronLeft />
       </div>
+
       <div className="search-results-list">
         {searchResults.Search.map(result => (
           <div key={result.imdbID} className="search-item">
@@ -27,7 +28,8 @@ const SearchResults = ({ searchResults }) => {
           </div>
         ))}
       </div>
-      <div className="chevron">
+
+      <div className="chevron" onClick={fetchNextPage}>
         <ChevronRight />
       </div>
     </div>
@@ -46,6 +48,9 @@ SearchResults.propTypes = {
       }),
     ),
   }),
+
+  fetchPrevPage: PropTypes.func.isRequired,
+  fetchNextPage: PropTypes.func.isRequired,
 }
 
 export default SearchResults
