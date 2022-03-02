@@ -1,34 +1,46 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './App.css'
 import placeholderImg from './assets/placeholder.png'
 import { ReactComponent as ChevronLeft } from './assets/chevron-left.svg'
 import { ReactComponent as ChevronRight } from './assets/chevron-right.svg'
 
 function App() {
+  const [searchQuery, setSearchQuery] = useState('')
   const [searchResult, setSearchResult] = useState()
 
-  useEffect(() => {
-    const search = async () => {
-      const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
-      )
+  const handleSearchQueryChange = event => {
+    setSearchQuery(event.target.value)
+  }
 
-      const data = await response.json()
+  const performSearch = async () => {
+    const response = await fetch(
+      `http://www.omdbapi.com/?apikey=a461e386&s=${searchQuery}`,
+    )
 
-      if (!searchResult) {
-        setSearchResult(data)
-      }
+    const data = await response.json()
+
+    const hasErrored = data.Response === 'False'
+
+    // TODO: Implement error case
+    if (hasErrored) {
+      return
     }
 
-    search()
-  })
+    setSearchResult(data)
+  }
 
   return (
     <div className="App">
       <div className="search">
-        <input type="text" placeholder="Search..." />
-        <button>Search</button>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearchQueryChange}
+        />
+        <button onClick={performSearch}>Search</button>
       </div>
+
       {!searchResult ? (
         <p>No results yet</p>
       ) : (
