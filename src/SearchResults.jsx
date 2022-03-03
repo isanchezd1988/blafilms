@@ -10,8 +10,10 @@ const SearchResults = ({ searchResults, fetchPrevPage, fetchNextPage }) => {
     <p>No results yet</p>
   ) : (
     <div className="search-results">
-      <div className="chevron" onClick={fetchPrevPage}>
-        <ChevronLeft />
+      <div className="chevron">
+        <button aria-label="prevPage" onClick={fetchPrevPage}>
+          <ChevronLeft />
+        </button>
       </div>
 
       <div className="search-results-list">
@@ -29,8 +31,10 @@ const SearchResults = ({ searchResults, fetchPrevPage, fetchNextPage }) => {
         ))}
       </div>
 
-      <div className="chevron" onClick={fetchNextPage}>
-        <ChevronRight />
+      <div className="chevron">
+        <button aria-label="nextPage" onClick={fetchNextPage}>
+          <ChevronRight />
+        </button>
       </div>
     </div>
   )
