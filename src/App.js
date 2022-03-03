@@ -67,12 +67,15 @@ function App() {
     <div className="App">
       <div className="search">
         <input
+          className="searchBox"
           type="text"
           placeholder="Search..."
           value={searchQuery}
           onChange={handleSearchQueryChange}
         />
-        <button onClick={performSearch}>Search</button>
+        <button className="searchButton" onClick={performSearch}>
+          Search
+        </button>
       </div>
 
       <SearchResults
