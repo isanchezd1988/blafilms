@@ -21,8 +21,7 @@ const performSearch = async () => {
     selector: 'button',
   })
 
-  await userEvent.click(searchInput)
-  await userEvent.keyboard(SEARCH_QUERY)
+  await userEvent.type(searchInput, SEARCH_QUERY)
 
   await userEvent.click(performSearchButton)
 
@@ -48,8 +47,7 @@ describe('End to end App tests', () => {
     expect(searchInput).toBeVisible()
     expect(performSearchButton).toBeVisible()
 
-    await userEvent.click(searchInput)
-    await userEvent.keyboard(SEARCH_QUERY)
+    await userEvent.type(searchInput, SEARCH_QUERY)
     expect(searchInput.value).toBe(SEARCH_QUERY)
 
     await userEvent.click(performSearchButton)
