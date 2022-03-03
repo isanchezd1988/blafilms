@@ -91,4 +91,10 @@ describe('End to end App tests', () => {
       expect(screen.getByText(movieTitle, { exact: true })).toBeVisible()
     })
   })
+
+  it.todo('prevent user from going to negative pages')
+
+  it.todo('prevent user from going to pages with no results')
+
+  it.todo('shows an error when no films are found')
 })
