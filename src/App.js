@@ -37,8 +37,8 @@ function App() {
             <ChevronLeft />
           </div>
           <div className="search-results-list">
-            {searchResult.Search.map(result => (
-              <div key={result.imdbID} className="search-item">
+            {searchResult.Search.map((result, index) => (
+              <div key={result.imdbID + index} className="search-item">
                 <img
                   src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
                   alt="poster"
