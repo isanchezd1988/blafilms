@@ -35,5 +35,8 @@ describe('App', () => {
       await moviesAreLoaded()
     })
     itRendersSearchControls()
+    it('renders the list of movies', () => {
+      expect(screen.getByRole('list')).toBeVisible()
+    })
   })
 })

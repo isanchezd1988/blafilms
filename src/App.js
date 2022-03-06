@@ -36,7 +36,7 @@ function App() {
           <div className="chevron">
             <ChevronLeft />
           </div>
-          <div className="search-results-list">
+          <div className="search-results-list" role="list">
             {searchResult.Search.map((result, index) => (
               <div key={result.imdbID + index} className="search-item">
                 <img
