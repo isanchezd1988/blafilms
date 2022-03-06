@@ -15,11 +15,11 @@ const itRendersSearchControls = () => {
   })
 }
 
-const moviesAreLoaded = async () => {
-  await waitFor(() => screen.getByText('King Kong'))
-}
-
 const getListOfMovies = () => screen.getByRole('list')
+
+const moviesAreLoaded = async () => {
+  await waitFor(getListOfMovies)
+}
 
 describe('App', () => {
   beforeEach(() => {
