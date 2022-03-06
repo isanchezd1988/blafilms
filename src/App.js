@@ -38,7 +38,11 @@ function App() {
           </div>
           <div className="search-results-list" role="list">
             {searchResult.Search.map((result, index) => (
-              <div key={result.imdbID + index} className="search-item">
+              <div
+                key={result.imdbID + index}
+                className="search-item"
+                role="listitem"
+              >
                 <img
                   src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
                   alt="poster"

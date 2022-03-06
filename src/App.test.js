@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, within } from '@testing-library/react'
 
 import App from './App'
 
@@ -19,6 +19,8 @@ const moviesAreLoaded = async () => {
   await waitFor(() => screen.getByText('King Kong'))
 }
 
+const getListOfMovies = () => screen.getByRole('list')
+
 describe('App', () => {
   beforeEach(() => {
     render(<App />)
@@ -36,7 +38,11 @@ describe('App', () => {
     })
     itRendersSearchControls()
     it('renders the list of movies', () => {
-      expect(screen.getByRole('list')).toBeVisible()
+      expect(getListOfMovies()).toBeVisible()
+    })
+    it('renders list items inside the list of movies', () => {
+      const movieListItems = within(getListOfMovies()).getAllByRole('listitem')
+      expect(movieListItems.length).toBeGreaterThan(0)
     })
   })
 })
