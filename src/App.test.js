@@ -44,5 +44,11 @@ describe('App', () => {
       const movieListItems = within(getListOfMovies()).getAllByRole('listitem')
       expect(movieListItems.length).toBeGreaterThan(0)
     })
+    it('renders arrows for prev/next page navigation', () => {
+      // https://testing-library.com/docs/queries/bytitle/#api
+      //   - Will also find a title element within an SVG
+      expect(screen.getByTitle('Previous Page')).toBeInTheDocument()
+      expect(screen.getByTitle('Next Page')).toBeInTheDocument()
+    })
   })
 })
