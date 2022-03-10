@@ -7,7 +7,7 @@ describe('App', () => {
     it('shows a default message', () => {
       render(<App />)
 
-      expect(screen.getByText('No results yet')).toBeInTheDocument()
+      expect(screen.getByText('No results yet')).toBeVisible()
     })
 
     it("doesn't show a list of movies", () => {
@@ -21,7 +21,7 @@ describe('App', () => {
 
       const searchBox = screen.getByRole('searchbox')
 
-      expect(searchBox).toBeInTheDocument()
+      expect(searchBox).toBeVisible()
       expect(searchBox.value).toBe('')
     })
   })
@@ -32,7 +32,7 @@ describe('App', () => {
 
       const movieList = await screen.findByRole('list')
 
-      expect(movieList).toBeInTheDocument()
+      expect(movieList).toBeVisible()
       expect(within(movieList).getAllByRole('listitem').length).toBeGreaterThan(
         0,
       )
