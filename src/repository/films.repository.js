@@ -12,7 +12,6 @@ export const FilmsRepository = {
 
           if(data.Response === 'True') {
               films.push(...data.Search.map(item => new Film(item.imdbID, item.Poster, item.Title, item.Type, item.Year)));
-              console.log(films[0].imdbID);
           }
 
           return films;
