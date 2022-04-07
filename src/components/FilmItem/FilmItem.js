@@ -1,5 +1,5 @@
 import React from 'react'
-import placeholderImg from './../placeholder.png'
+import placeholderImg from '../../assets/placeholder.png'
 
 function FilmItem({film}) {
 

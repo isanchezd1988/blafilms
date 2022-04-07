@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import './App.css'
-import { ReactComponent as ChevronLeft } from './chevron-left.svg'
-import { ReactComponent as ChevronRight } from './chevron-right.svg'
-import { FilmItem } from './components/FilmItem'
-import { SearchBox } from './components/SearchBox'
-import { FilmsRepository } from './repository/films.repository'
+import { ReactComponent as ChevronLeft } from './../../assets/chevron-left.svg'
+import { ReactComponent as ChevronRight } from './../../assets/chevron-right.svg'
+import { FilmItem } from '../FilmItem/FilmItem'
+import { SearchBox } from '../SearchBox/SearchBox'
+import { FilmsRepository } from '../../repository/films.repository'
 
 function App() {
   const [searchValue, setSearchValue] = useState('')
