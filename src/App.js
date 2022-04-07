@@ -1,57 +1,52 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import './App.css'
-import placeholderImg from './placeholder.png'
 import { ReactComponent as ChevronLeft } from './chevron-left.svg'
 import { ReactComponent as ChevronRight } from './chevron-right.svg'
+import { FilmItem } from './components/FilmItem'
+import { SearchBox } from './components/SearchBox'
+import { FilmsRepository } from './repository/films.repository'
 
 function App() {
+  const [searchValue, setSearchValue] = useState('')
+  const [pageValue, setPageValue] = useState(1)
   const [searchResult, setSearchResult] = useState()
 
-  useEffect(() => {
-    const search = async () => {
-      const response = await fetch(
-        'http://www.omdbapi.com/?apikey=a461e386&s=king',
-      )
+  const onSearchValueChange = event => {
+    setSearchValue(event.target.value)
+  }
 
-      const data = await response.json()
+  const search = () => {
+    FilmsRepository.getFilms(searchValue, pageValue)
+    .then(films => setSearchResult(films));
+  }
 
-      if (!searchResult) {
-        setSearchResult(data)
-      }
-    }
-
+  const incrementPage = () => {
+    setPageValue(pageValue + 1)
     search()
-  })
+  }
+
+  const decrementPage = () => {
+    setPageValue(pageValue > 0 ? pageValue - 1 : pageValue)
+    search()
+  }
 
   return (
     <div className="App">
-      <div className="search">
-        <input type="text" placeholder="Search..." />
-        <button>Search</button>
-      </div>
+      <SearchBox searchValue={searchValue} onSearchValueChange={onSearchValueChange} search={search}/>
       {!searchResult ? (
         <p>No results yet</p>
       ) : (
         <div className="search-results">
           <div className="chevron">
-            <ChevronLeft />
+            <ChevronLeft onClick={decrementPage}/>
           </div>
           <div className="search-results-list">
-            {searchResult.Search.map(result => (
-              <div key={result.imdbID} className="search-item">
-                <img
-                  src={result.Poster === 'N/A' ? placeholderImg : result.Poster}
-                  alt="poster"
-                />
-                <div className="search-item-data">
-                  <div className="title">{result.Title}</div>
-                  <div className="meta">{`${result.Type} | ${result.Year}`}</div>
-                </div>
-              </div>
+            {searchResult.map((result, index) => (
+              <FilmItem key={index} film={ result } />
             ))}
           </div>
           <div className="chevron">
-            <ChevronRight />
+            <ChevronRight onClick={incrementPage}/>
           </div>
         </div>
       )}
